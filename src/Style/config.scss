@@ -1,0 +1,36 @@
+$theme-color1: #ad2a4b;
+$theme-color2: #fff0b0;
+
+/*padding 값 통일*/
+$padd: 30px;
+
+
+$font-kr: 'Noto Sans KR', sans-serif;
+$font-title: 'yg-jalnan', sans-serif;
+$font-normal: 15px;
+
+$breakpoints: (
+  'small': (max-width: 414px),
+  'mobile': (max-width: 768px),
+  'desktop': (min-width: 769px)
+);
+
+
+@mixin respond-to($breakpoint) {
+  $raw-query: map-get($breakpoints, $breakpoint);
+
+  @if $raw-query {
+    $query: if(
+      type-of($raw-query) == 'string',
+      unquote($raw-query),
+      inspect($raw-query)
+    );
+
+    @media #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`. '
+         + 'Please make sure it is defined in `$breakpoints` map.';
+  }
+};
